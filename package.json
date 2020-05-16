@@ -1,0 +1,18 @@
+{
+  "name": "hapi-front",
+  "version": "1.0.0",
+  "description": "Serverless Hapi proxy that works",
+  "main": "index.js",
+  "author": "berzniz@gmail.com",
+  "license": "MIT",
+  "files": [
+    "./src",
+    "index.js"
+  ],
+  "scripts": {
+    "standard": "standard --fix"
+  },
+  "devDependencies": {
+    "standard": "^13.0.2"
+  }
+}

@@ -1,0 +1,27 @@
+# General
+.env
+*.tmp
+build
+
+# Node
+node_modules
+
+# Serverless
+.serverless
+
+# npm
+package-lock.json
+
+# Yarn
+yarn-error.log
+
+# IntelliJ project files
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Mac files
+*.DS_Store
+
+
