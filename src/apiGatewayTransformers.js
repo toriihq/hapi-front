@@ -1,5 +1,5 @@
 const transformUrlPath = (event, options) => {
-  let url = event.path
+  let url = event.path || '/'
 
   if (options.stripStage) {
     const currentStage = event.requestContext ? event.requestContext.stage : null
