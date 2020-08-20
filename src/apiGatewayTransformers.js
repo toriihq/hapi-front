@@ -43,7 +43,7 @@ const transformResponse = response => {
     ...response.headers
   }
 
-  const body = response.payload
+  const body = response.rawPayload && response.rawPayload.toString()
 
   return {
     statusCode,
