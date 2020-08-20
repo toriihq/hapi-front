@@ -15,7 +15,7 @@ const logResponse = ({ request, response, timing, logger = console }) => {
     request.url,
     `[${response.statusCode}]`,
     `${timing.total}ms`,
-    isError && response.body
+    isError && response.result
   ].filter(Boolean)
   logger.info(...message)
 }

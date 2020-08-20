@@ -19,6 +19,20 @@ const transformUrlPath = (event, options) => {
   return url
 }
 
+const transformBody = (event) => {
+  const type = typeof event.body
+
+  if (Buffer.isBuffer(event.body)) {
+    return event.body
+  } else if (type === 'string') {
+    return Buffer.from(event.body, event.isBase64Encoded ? 'base64' : 'utf8')
+  } else if (type === 'object') {
+    return Buffer.from(JSON.stringify(event.body))
+  }
+
+  throw new Error(`Unexpected event.body type: "${type}"`)
+}
+
 const transformRequest = (event, options) => {
   const opt = {
     path: {
@@ -30,7 +44,7 @@ const transformRequest = (event, options) => {
   return {
     method: event.httpMethod,
     url: transformUrlPath(event, opt.path),
-    payload: event.body,
+    payload: transformBody(event),
     headers: event.headers,
     validate: true
   }
