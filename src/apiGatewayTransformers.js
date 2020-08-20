@@ -36,8 +36,6 @@ const transformRequest = (event, options) => {
   }
 }
 
-const isString = (obj) => (typeof obj === 'string')
-
 const transformResponse = response => {
   const { statusCode } = response
 
@@ -45,9 +43,7 @@ const transformResponse = response => {
     ...response.headers
   }
 
-  const body = isString(response.result)
-    ? response.result
-    : JSON.stringify(response.result)
+  const body = response.payload
 
   return {
     statusCode,
