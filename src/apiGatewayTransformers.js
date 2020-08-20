@@ -45,12 +45,6 @@ const transformResponse = response => {
     ...response.headers
   }
 
-  // some headers are rejected by lambda
-  // ref: http://stackoverflow.com/questions/37942119/rust-aws-api-gateway-service-proxy-to-s3-file-upload-using-raw-https-request/37950875#37950875
-  // ref: https://github.com/awslabs/aws-serverless-express/issues/10
-  delete headers['content-encoding']
-  delete headers['transfer-encoding']
-
   const body = isString(response.result)
     ? response.result
     : JSON.stringify(response.result)
