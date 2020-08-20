@@ -43,12 +43,15 @@ const transformResponse = response => {
     ...response.headers
   }
 
-  const body = response.rawPayload && response.rawPayload.toString()
+  delete headers['transfer-encoding']
+
+  const body = response.rawPayload && response.rawPayload.toString('base64')
 
   return {
     statusCode,
     headers,
-    body
+    body,
+    isBase64Encoded: true
   }
 }
 
