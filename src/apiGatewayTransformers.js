@@ -1,25 +1,14 @@
-const transformUrlPath = (event, options) => {
-  let url = event.path || '/'
+const URL = require('url')
 
-  if (options.stripStage) {
-    const currentStage = event.requestContext ? event.requestContext.stage : null
-    if (currentStage) {
-      url = url.replace(`${currentStage}/`, '')
-    }
+const getURL = (event) => {
+  const url = {
+    pathname: event.path,
+    query: event.multiValueQueryStringParameters || event.queryStringParameters
   }
-
-  const params = event.queryStringParameters
-  if (params) {
-    const qs = Object.keys(params).map(key => `${key}=${params[key]}`)
-    if (qs.length > 0) {
-      url += `?${qs.join('&')}`
-    }
-  }
-
-  return url
+  return URL.format(url)
 }
 
-const transformBody = (event) => {
+const getPayload = (event) => {
   const type = typeof event.body
 
   if (Buffer.isBuffer(event.body)) {
@@ -33,19 +22,29 @@ const transformBody = (event) => {
   throw new Error(`Unexpected event.body type: "${type}"`)
 }
 
-const transformRequest = (event, options) => {
-  const opt = {
-    path: {
-      stripStage: false
-    },
-    ...options
+const getHeaders = (event) => {
+  return {
+    ...event.headers,
+    'X-Request-Id': event.requestContext.requestId,
+    'X-Stage': event.requestContext.stage
   }
+}
 
+const getRemoteAddress = (event) => {
+  return (
+    event.requestContext &&
+    event.requestContext.identity &&
+    event.requestContext.identity.sourceIp
+  )
+}
+
+const transformRequest = (event) => {
   return {
     method: event.httpMethod,
-    url: transformUrlPath(event, opt.path),
-    payload: transformBody(event),
-    headers: event.headers,
+    url: getURL(event),
+    payload: getPayload(event),
+    headers: getHeaders(event),
+    remoteAddress: getRemoteAddress(event),
     validate: true
   }
 }
