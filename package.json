@@ -1,13 +1,27 @@
 {
   "name": "hapi-front",
-  "version": "1.0.8",
-  "description": "Serverless Hapi proxy that works",
+  "version": "1.0.9",
+  "description": "The serverless Hapi proxy",
   "main": "index.js",
   "author": "berzniz@gmail.com",
   "license": "MIT",
   "files": [
     "src",
     "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toriihq/hapi-front"
+  },
+  "keywords": [
+    "hapi",
+    "hapijs",
+    "hapi.js",
+    "api gateway",
+    "lambda",
+    "aws",
+    "aws lambda",
+    "serverless"
   ],
   "scripts": {
     "standard": "standard --fix"

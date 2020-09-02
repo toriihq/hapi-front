@@ -1,0 +1,39 @@
+service: hapi-front-example
+
+plugins:
+  - serverless-offline
+  - serverless-webpack
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-1
+  stage: dev
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+    packager: 'yarn'
+  customDomain:
+    domainName: test.example.com
+    stage: dev
+    createRoute53Record: true
+    endpointType: 'regional'
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - http:
+          path: '/'
+          method: any
+          cors: true
+      - http:
+          path: '{proxy+}'
+          method: any
+          cors: true
