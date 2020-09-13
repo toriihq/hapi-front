@@ -38,6 +38,21 @@ const getRemoteAddress = (event) => {
   )
 }
 
+const BINARY_ENCODINGS = {
+  gzip: true,
+  deflate: true,
+  br: true
+}
+
+const isBinary = (headers) => {
+  const contentEncoding = headers['content-encoding']
+  if (typeof contentEncoding !== 'string') {
+    return false
+  }
+
+  return contentEncoding.split(',').some(value => BINARY_ENCODINGS[value])
+}
+
 const transformRequest = (event) => {
   return {
     method: event.httpMethod,
@@ -56,15 +71,24 @@ const transformResponse = response => {
     ...response.headers
   }
 
-  delete headers['transfer-encoding']
+  if (headers['transfer-encoding'] === 'chunked') {
+    delete headers['transfer-encoding']
+  }
 
-  const body = response.rawPayload && response.rawPayload.toString('base64')
+  const multiValueHeaders = {}
+  Object.keys(headers).forEach(key => {
+    multiValueHeaders[key] = Array.isArray(headers[key]) ? headers[key] : [headers[key]]
+  })
+
+  const isBase64Encoded = isBinary(headers)
+  const encoding = isBase64Encoded ? 'base64' : 'utf8'
+  const body = response.rawPayload && response.rawPayload.toString(encoding)
 
   return {
     statusCode,
-    headers,
+    multiValueHeaders,
     body,
-    isBase64Encoded: true
+    isBase64Encoded
   }
 }
 
