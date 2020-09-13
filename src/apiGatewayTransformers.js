@@ -2,7 +2,7 @@ const URL = require('url')
 
 const getURL = (event) => {
   const url = {
-    pathname: event.path,
+    pathname: event.path || '/',
     query: event.multiValueQueryStringParameters || event.queryStringParameters
   }
   return URL.format(url)
