@@ -10,16 +10,13 @@
     "start": "serverless offline"
   },
   "dependencies": {
-    "@hapi/boom": "^9.1.0",
-    "@hapi/hapi": "^18.3.1",
-    "@hapi/joi": "^15.1.0",
-    "zlib": "^1.0.5"
+    "@hapi/hapi": "^20.0.0"
   },
   "devDependencies": {
     "serverless-domain-manager": "^3.2.6",
     "serverless-offline": "^5.8.0",
-    "serverless-webpack": "^5.3.1",
-    "webpack": "^4.36.1",
-    "webpack-node-externals": "^1.7.2"
+    "serverless-webpack": "^5.3.5",
+    "webpack": "^4.44.1",
+    "webpack-node-externals": "^2.5.2"
   }
 }
