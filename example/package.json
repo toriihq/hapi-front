@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "serverless-domain-manager": "^3.2.6",
-    "serverless-offline": "^5.8.0",
+    "serverless-offline": "^7.0.0",
     "serverless-webpack": "^5.3.5",
     "webpack": "^4.44.1",
     "webpack-node-externals": "^2.5.2"
