@@ -27,6 +27,6 @@
     "standard": "standard --fix"
   },
   "devDependencies": {
-    "standard": "^16.0.3"
+    "standard": "^17.1.0"
   }
 }
