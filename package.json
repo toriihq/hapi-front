@@ -1,6 +1,6 @@
 {
   "name": "hapi-front",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "The serverless Hapi proxy",
   "main": "index.js",
   "author": "berzniz@gmail.com",
