@@ -2,7 +2,7 @@ const { transformRequest, transformResponse } = require('./src/apiGatewayTransfo
 const { logRequest, logResponse } = require('./src/logging')
 
 const handleEvent = async (server, e, config) => {
-  const { logger = console } = config
+  const { enableLogs = true, logger = console } = config
 
   const start = Date.now()
 
@@ -10,7 +10,9 @@ const handleEvent = async (server, e, config) => {
   const request = transformRequest(e)
   const postTransformRequest = Date.now()
 
-  logRequest({ request, logger })
+  if (enableLogs) {
+    logRequest({ request, logger })
+  }
 
   const preInject = Date.now()
   const serverResponse = await server.inject(request)
@@ -29,7 +31,9 @@ const handleEvent = async (server, e, config) => {
     transformResponse: postTransformResponse - preTransformResponse
   }
 
-  logResponse({ request, response, timing, logger })
+  if (enableLogs) {
+    logResponse({ request, response, timing, logger })
+  }
 
   return response
 }
