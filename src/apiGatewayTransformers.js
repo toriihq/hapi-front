@@ -27,8 +27,8 @@ const getPayload = (event) => {
 const getHeaders = (event) => {
   return {
     ...event.headers,
-    'X-Request-Id': event.requestContext.requestId,
-    'X-Stage': event.requestContext.stage
+    'X-Request-Id': event.requestContext?.requestId,
+    'X-Stage': event.requestContext?.stage
   }
 }
 
