@@ -56,6 +56,7 @@ const isBinary = (headers) => {
 }
 
 const transformRequest = (event) => {
+  console.log(JSON.stringify(event, null, 2))
   return {
     method: event.httpMethod || event.requestContext?.http?.method || 'GET',
     url: getURL(event),
