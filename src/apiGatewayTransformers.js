@@ -17,7 +17,7 @@ const getPayload = (event) => {
     return Buffer.from(event.body, event.isBase64Encoded ? 'base64' : 'utf8')
   } else if (type === 'object') {
     return Buffer.from(JSON.stringify(event.body))
-  } else if(type === 'undefined') {
+  } else if (type === 'undefined') {
     return Buffer.from(JSON.stringify(null))
   }
 
@@ -57,7 +57,7 @@ const isBinary = (headers) => {
 
 const transformRequest = (event) => {
   return {
-    method: event.httpMethod || event.requestContext.http.method,
+    method: event.httpMethod || event.requestContext?.http?.method || 'GET',
     url: getURL(event),
     payload: getPayload(event),
     headers: getHeaders(event),
