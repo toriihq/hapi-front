@@ -1,9 +1,9 @@
 To run locally:
 
-1. Create `package.json` / `yarn.lock` based on the template (you may want to update dependencies for security reasons):
-```back
+1. Create `package.json` based on the template and resolve dependencies (the template's versions are a starting point — bump them as needed):
+```bash
 cp package.json.template package.json
-cp yarn.lock.template yarn.lock
+yarn install
 ```
 2. Run serverless offline
 ```bash
